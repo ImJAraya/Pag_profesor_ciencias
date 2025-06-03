@@ -1,7 +1,5 @@
 // netlify/functions/getPlaylist.js
 
-import fetch from "node-fetch"; // para hacer peticiones HTTP desde la función
-
 export const handler = async (event, context) => {
   // 1) Leer parámetros de query string: ?playlistId=XYZ
   const { playlistId } = event.queryStringParameters || {};
