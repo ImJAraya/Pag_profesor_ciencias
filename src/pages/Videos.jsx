@@ -63,8 +63,27 @@ function Videos() {
   }
 
   return (
-    <div style={{ maxWidth: "960px", margin: "0 auto", padding: "1rem" }}>
-      <h2>Videos de la playlist: {playlistId}</h2>
+    <div
+      className="page-content"
+      style={{
+        background: "var(--section-bg)",
+        borderRadius: "12px",
+        boxShadow: "0 1px 6px 0 rgba(35,69,103,0.04)",
+        maxWidth: "600px",
+        margin: "2rem auto",
+        padding: "2rem",
+        color: "var(--text-main)",
+        textAlign: "center",
+      }}
+    >
+      <h2
+        style={{
+          color: "var(--primary)",
+          marginBottom: "1.2rem",
+        }}
+      >
+        Videos de la playlist: {playlistId}
+      </h2>
       <div
         className="videos-grid"
         style={{

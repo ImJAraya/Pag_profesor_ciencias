@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import './App.css'
 
@@ -16,17 +16,17 @@ function App() {
         <section className="section decimo">
           <h3>Grupo Décimo</h3>
           <ul>
-            <li><button onClick={() => navigate('/material')}>Material</button></li>
-            <li><button onClick={() => navigate('/practicas')}>Prácticas</button></li>
-            <li><button onClick={() => navigate('/videos/PLUbkPYHjSbfCGnWbUkTvy02tXum4u8Ter')}>Videos</button></li>
+            <button onClick={() => navigate('/material')}>Material</button>
+            <button onClick={() => navigate('/practicas')}>Prácticas</button>
+            <button onClick={() => navigate('/videos/PLUbkPYHjSbfCGnWbUkTvy02tXum4u8Ter')}>Videos</button>
           </ul>
         </section>
         <section className="section once">
           <h3>Grupo 11mo</h3>
           <ul>
-            <li><button onClick={() => navigate('/material')}>Material</button></li>
-            <li><button onClick={() => navigate('/practicas')}>Prácticas</button></li>
-            <li><button onClick={() => navigate('/videos/PLUbkPYHjSbfAR7xTTN8g49KtUQFTitZIF')}>Videos</button></li>
+            <button onClick={() => navigate('/material')}>Material</button>
+            <button onClick={() => navigate('/practicas')}>Prácticas</button>
+            <button onClick={() => navigate('/videos/PLUbkPYHjSbfAR7xTTN8g49KtUQFTitZIF')}>Videos</button>
           </ul>
         </section>
         <section className="section pne">
