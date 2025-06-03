@@ -1,0 +1,7 @@
+[build]
+  command   = "npm run build"      # o "yarn build", según uses npm o yarn
+  publish   = "dist"               # para Vite, la carpeta salida por defecto es "dist"
+  functions = "netlify/functions"  # ruta relativa donde vivirán tus funciones
+
+[dev]
+  functions = "netlify/functions"  # esto permite usar `netlify dev` en local para emular funciones

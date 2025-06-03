@@ -15,7 +15,7 @@ const Layout = () => {
         <Route path="/" element={<App />} />
         <Route path="/material" element={<Material />} />
         <Route path="/practicas" element={<Practicas />} />
-        <Route path="/videos" element={<Videos />} />
+        <Route path="/videos/:playlistId" element={<Videos />} />
         <Route path="/fisica" element={<Fisica />} />
         <Route path="/quimica" element={<Quimica />} />
         <Route path="/biologia" element={<Biologia />} />

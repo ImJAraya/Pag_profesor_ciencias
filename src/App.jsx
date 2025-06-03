@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link } from "react-router-dom";
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {  useNavigate } from "react-router-dom";
+
 import './App.css'
 
 function App() {
+  const navigate = useNavigate();
+
   return (
     <div className="app-container">
       <header className="banner">
@@ -15,25 +16,25 @@ function App() {
         <section className="section decimo">
           <h3>Grupo Décimo</h3>
           <ul>
-            <li><Link to="/material">Material</Link></li>
-            <li><Link to="/practicas">Prácticas</Link></li>
-            <li><Link to="/videos">Videos</Link></li>
+            <li><button onClick={() => navigate('/material')}>Material</button></li>
+            <li><button onClick={() => navigate('/practicas')}>Prácticas</button></li>
+            <li><button onClick={() => navigate('/videos/PLUbkPYHjSbfCGnWbUkTvy02tXum4u8Ter')}>Videos</button></li>
           </ul>
         </section>
         <section className="section once">
           <h3>Grupo 11mo</h3>
           <ul>
-            <li><Link to="/material">Material</Link></li>
-            <li><Link to="/practicas">Prácticas</Link></li>
-            <li><Link to="/videos">Videos</Link></li>
+            <li><button onClick={() => navigate('/material')}>Material</button></li>
+            <li><button onClick={() => navigate('/practicas')}>Prácticas</button></li>
+            <li><button onClick={() => navigate('/videos/PLUbkPYHjSbfAR7xTTN8g49KtUQFTitZIF')}>Videos</button></li>
           </ul>
         </section>
         <section className="section pne">
           <h3>Grupo PNE</h3>
           <ul>
-            <li><Link to="/fisica">Física</Link></li>
-            <li><Link to="/quimica">Química</Link></li>
-            <li><Link to="/biologia">Biología</Link></li>
+            <button onClick={() => navigate('/fisica')}>Física</button>
+            <button onClick={() => navigate('/quimica')}>Química</button>
+            <button onClick={() => navigate('/biologia')}>Biología</button>
           </ul>
         </section>
       </main>
