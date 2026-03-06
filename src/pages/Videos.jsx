@@ -1,6 +1,7 @@
 // src/components/PlaylistVideos.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import "./Videos.css";
 
 const BATCH_SIZE = 12;
 
@@ -72,92 +73,59 @@ function Videos() {
 
   // Renderizado condicional
   if (loading) {
-    return <p>Cargando videos de la playlist…</p>;
+    return <p className="videos-status">Cargando videos de la playlist…</p>;
   }
   if (error) {
-    return <p style={{ color: "red" }}>Error: {error}</p>;
+    return <p className="videos-status videos-status-error">Error: {error}</p>;
   }
   if (videos.length === 0) {
-    return <p>No se encontraron videos para la playlist {playlistId}.</p>;
+    return (
+      <p className="videos-status">
+        No se encontraron videos para la playlist {playlistId}.
+      </p>
+    );
   }
 
   return (
-    <div
-      className="page-content"
-      style={{
-        background: "var(--section-bg)",
-        borderRadius: "12px",
-        boxShadow: "0 1px 6px 0 rgba(35,69,103,0.04)",
-        maxWidth: "600px",
-        margin: "2rem auto",
-        padding: "2rem",
-        color: "var(--text-main)",
-        textAlign: "center",
-      }}
-    >
-      <h2
-        style={{
-          color: "var(--primary)",
-          marginBottom: "0.4rem",
-        }}
-      >
-        Videos de la playlist
-      </h2>
-      <p style={{ marginTop: 0, color: "var(--text-muted)" }}>
-        ID: {shortPlaylistId}
-      </p>
-      <div
-        className="videos-grid"
-        style={{
-          display: "grid",
-          gap: "1rem",
-          gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-        }}
-      >
+    <div className="videos-page">
+      <header className="videos-header">
+        <h2 className="videos-title">Videos de la playlist</h2>
+        <p className="videos-subtitle">ID: {shortPlaylistId}</p>
+        <p className="videos-counter">
+          Mostrando {visibleVideos.length} de {videos.length} videos
+        </p>
+      </header>
+      <div className="videos-grid">
         {visibleVideos.map((video) => (
-          <div
-            key={video.videoId}
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              overflow: "hidden",
-            }}
-          >
+          <article key={video.videoId} className="video-card">
             <a
+              className="video-link"
               href={`https://www.youtube.com/watch?v=${video.videoId}`}
               target="_blank"
               rel="noopener noreferrer"
             >
               <img
+                className="video-thumbnail"
                 src={video.thumbnail}
                 alt={video.title}
                 loading="lazy"
                 decoding="async"
-                style={{ width: "100%", display: "block" }}
               />
             </a>
-            <div style={{ padding: "0.5rem" }}>
-              <h3 style={{ margin: 0, fontSize: "1rem" }}>{video.title}</h3>
+            <div className="video-body">
+              <h3 className="video-title">{video.title}</h3>
             </div>
-          </div>
+          </article>
         ))}
       </div>
       {canLoadMore && (
         <button
+          className="videos-load-more"
           onClick={() =>
             setVisibleCount((current) =>
               Math.min(current + BATCH_SIZE, videos.length)
             )
           }
-          style={{
-            marginTop: "1rem",
-            background: "var(--accent)",
-            color: "#fff",
-            border: "none",
-            borderRadius: "6px",
-            padding: "0.65rem 1rem",
-            cursor: "pointer",
-          }}
         >
           Cargar más videos
         </button>
