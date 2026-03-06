@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+const BATCH_SIZE = 12;
+
 /**
  * Componente que muestra los videos de una playlist de YouTube.
  * Obtiene el playlistId desde los params de la URL.
@@ -10,6 +12,7 @@ function Videos() {
   const { playlistId } = useParams();
   // Estados para la lista de videos, indicador de carga y posible error
   const [videos, setVideos] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -22,6 +25,8 @@ function Videos() {
       return;
     }
 
+    const controller = new AbortController();
+
     // Construimos la URL a la Netlify Function (proxy a YouTube API)
     const functionURL = `/.netlify/functions/getPlaylist?playlistId=${playlistId}`;
 
@@ -30,8 +35,9 @@ function Videos() {
       try {
         setLoading(true);
         setError(null);
+        setVisibleCount(BATCH_SIZE);
 
-        const resp = await fetch(functionURL);
+        const resp = await fetch(functionURL, { signal: controller.signal });
         if (!resp.ok) {
           throw new Error(`Error HTTP ${resp.status}`);
         }
@@ -40,16 +46,29 @@ function Videos() {
         // La función debería devolver: { videos: [ {videoId, title, thumbnail}, ... ] }
         setVideos(json.videos || []);
       } catch (err) {
+        if (err.name === "AbortError") {
+          return;
+        }
         setError(err.message);
         setVideos([]);
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
     }
 
     fetchVideos();
+    return () => controller.abort();
     // Cada vez que 'playlistId' cambie, se ejecuta este efecto de nuevo.
   }, [playlistId]);
+
+  const shortPlaylistId =
+    playlistId && playlistId.length > 16
+      ? `${playlistId.slice(0, 8)}...${playlistId.slice(-6)}`
+      : playlistId;
+  const visibleVideos = videos.slice(0, visibleCount);
+  const canLoadMore = visibleCount < videos.length;
 
   // Renderizado condicional
   if (loading) {
@@ -79,11 +98,14 @@ function Videos() {
       <h2
         style={{
           color: "var(--primary)",
-          marginBottom: "1.2rem",
+          marginBottom: "0.4rem",
         }}
       >
-        Videos de la playlist: {playlistId}
+        Videos de la playlist
       </h2>
+      <p style={{ marginTop: 0, color: "var(--text-muted)" }}>
+        ID: {shortPlaylistId}
+      </p>
       <div
         className="videos-grid"
         style={{
@@ -92,7 +114,7 @@ function Videos() {
           gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
         }}
       >
-        {videos.map((video) => (
+        {visibleVideos.map((video) => (
           <div
             key={video.videoId}
             style={{
@@ -109,6 +131,8 @@ function Videos() {
               <img
                 src={video.thumbnail}
                 alt={video.title}
+                loading="lazy"
+                decoding="async"
                 style={{ width: "100%", display: "block" }}
               />
             </a>
@@ -118,6 +142,26 @@ function Videos() {
           </div>
         ))}
       </div>
+      {canLoadMore && (
+        <button
+          onClick={() =>
+            setVisibleCount((current) =>
+              Math.min(current + BATCH_SIZE, videos.length)
+            )
+          }
+          style={{
+            marginTop: "1rem",
+            background: "var(--accent)",
+            color: "#fff",
+            border: "none",
+            borderRadius: "6px",
+            padding: "0.65rem 1rem",
+            cursor: "pointer",
+          }}
+        >
+          Cargar más videos
+        </button>
+      )}
     </div>
   );
 }
