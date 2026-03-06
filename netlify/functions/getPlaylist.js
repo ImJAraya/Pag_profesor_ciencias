@@ -1,6 +1,6 @@
 // netlify/functions/getPlaylist.js
 
-export const handler = async (event, context) => {
+export const handler = async (event) => {
   // 1) Leer parámetros de query string: ?playlistId=XYZ
   const { playlistId } = event.queryStringParameters || {};
 
