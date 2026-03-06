@@ -1,4 +1,4 @@
-# Pagina Profesor Ciencias
+# Pagina Licenciado Ciencias
 
 Proyecto frontend con React + Vite y funciones serverless de Netlify.
 

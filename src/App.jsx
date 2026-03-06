@@ -47,7 +47,7 @@ function App() {
         <p className="hero-kicker">Aula virtual de ciencias</p>
         <h1>Biología CONED Turrialba</h1>
         <p className="hero-subtitle">
-          Prof. Cristiam Gutierrez · Recursos organizados por nivel y área.
+          Lic. Cristiam Gutierrez · Recursos organizados por nivel y área.
         </p>
       </header>
       <main className="sections">
