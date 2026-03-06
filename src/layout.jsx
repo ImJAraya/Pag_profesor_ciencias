@@ -9,11 +9,7 @@ const Fisica = lazy(() => import("./pages/Fisica.jsx"));
 const Quimica = lazy(() => import("./pages/Quimica.jsx"));
 const Biologia = lazy(() => import("./pages/Biologia.jsx"));
 
-const routeFallback = (
-  <p style={{ color: "var(--text-muted)", textAlign: "center", marginTop: "2rem" }}>
-    Cargando contenido...
-  </p>
-);
+const routeFallback = <p className="route-loading">Cargando contenido...</p>;
 
 const Layout = () => {
   return (

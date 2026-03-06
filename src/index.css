@@ -1,4 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Manrope:wght@400;500;700;800&display=swap");
+
 :root {
+  --main-bg: #edf3fb;
+  --main-bg-soft: #f6f9ff;
+  --surface-strong: #ffffff;
+  --surface-soft: #f3f8ff;
+  --line-strong: #c7d7eb;
+  --line-soft: #d8e4f4;
+  --text-main: #132540;
+  --text-muted: #4f6483;
+  --focus-ring: #1b7bc2;
+  --card-shadow: 0 18px 42px rgba(23, 56, 90, 0.12);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -15,12 +27,24 @@ html,
 body,
 #root {
   margin: 0;
-  padding: 0;
   min-height: 100%;
 }
 
 body {
-  min-width: 320px;
+  min-width: 20rem;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(27, 123, 194, 0.18) 0%, transparent 32%),
+    radial-gradient(circle at 95% 12%, rgba(11, 153, 128, 0.13) 0%, transparent 36%),
+    linear-gradient(180deg, var(--main-bg) 0%, var(--main-bg-soft) 100%);
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem clamp(0.8rem, 2.2vw, 2rem) 2rem;
 }
 
 a {
@@ -31,4 +55,79 @@ a {
 img {
   max-width: 100%;
   display: block;
+}
+
+.route-loading {
+  margin: 2rem auto;
+  padding: 0.8rem 1rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-strong);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.page-content {
+  width: min(100%, 48rem);
+  margin: 1rem auto;
+  background: var(--surface-strong);
+  border: 1px solid var(--line-strong);
+  border-radius: 1.25rem;
+  box-shadow: var(--card-shadow);
+  padding: 1.2rem 1rem;
+  text-align: center;
+  animation: rise-in 0.42s ease both;
+}
+
+.page-eyebrow {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.page-content h2 {
+  margin: 0.5rem 0 0;
+  font-family: "Bitter", Georgia, serif;
+  font-size: clamp(1.35rem, 4vw, 1.8rem);
+  line-height: 1.15;
+}
+
+.page-content p {
+  margin: 0.7rem auto 0;
+  max-width: 58ch;
+  color: var(--text-muted);
+  line-height: 1.48;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 48rem) {
+  #root {
+    padding-top: 1.3rem;
+  }
+
+  .page-content {
+    padding: 1.6rem 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
